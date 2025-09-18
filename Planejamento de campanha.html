@@ -246,7 +246,7 @@
                         </div>
                     </div>
                     <!-- Outubro -->
-                    <div class="timeline-event right" data-month="outubro" data-content='{"organic_pieces": "12-15", "paid_pieces": "Variadas", "channels": "Meta, YouTube, Google (Display)", "objective": "Aumentar a base de leads e nutrir o público. Conteúdo Orgânico: A série &quot;Um dia como aluno&quot; com o primeiro episódio de Fotografia. Lives com professores e ex-alunos. Conteúdo Pago: Bumper Ads e Video Ads no YouTube para reforçar a reputação. Campanha de tráfego para o site com foco em cursos e eventos abertos."}'>
+                    <div class="timeline-event right" data-month="outubro" data-content='{"organic_pieces": "12-15", "paid_pieces": "Variadas", "channels": "Meta, YouTube, Google (Display)", "objective": "Aumentar a base de leads e nutrir o público. Conteúdo Orgânico: A série \"Um dia como aluno\" com o primeiro episódio de Fotografia. Lives com professores e ex-alunos. Conteúdo Pago: Bumper Ads e Video Ads no YouTube para reforçar a reputação. Campanha de tráfego para o site com foco em cursos e eventos abertos."}'>
                         <div class="timeline-content">
                             <h3 class="text-xl font-semibold">Outubro</h3>
                             <div class="flex items-center justify-start space-x-2 mt-2">
@@ -286,7 +286,7 @@
                         </div>
                     </div>
                     <!-- Fevereiro -->
-                    <div class="timeline-event right" data-month="fevereiro" data-content='{"organic_pieces": "16-20", "paid_pieces": "Variadas", "channels": "Meta, PMax, Google Ads, Remarketing", "objective": "Reforçar o senso de urgência e fechar matrículas. Conteúdo Orgânico: Depoimentos de alunos e exposição de portfólios. Conteúdo Pago: PMax forte, Pesquisa, Remarketing agressivo com CTA para &quot;últimas vagas&quot;. Lives com coordenadores e visitas guiadas para os leads que ainda não se matricularam."}'>
+                    <div class="timeline-event right" data-month="fevereiro" data-content='{"organic_pieces": "16-20", "paid_pieces": "Variadas", "channels": "Meta, PMax, Google Ads, Remarketing", "objective": "Reforçar o senso de urgência e fechar matrículas. Conteúdo Orgânico: Depoimentos de alunos e exposição de portfólios. Conteúdo Pago: PMax forte, Pesquisa, Remarketing agressivo com CTA para \"últimas vagas\". Lives com coordenadores e visitas guiadas para os leads que ainda não se matricularam."}'>
                         <div class="timeline-content">
                             <h3 class="text-xl font-semibold">Fevereiro</h3>
                             <div class="flex items-center justify-start space-x-2 mt-2">
@@ -296,7 +296,7 @@
                         </div>
                     </div>
                     <!-- Março -->
-                    <div class="timeline-event left" data-month="março" data-content='{"organic_pieces": "20+", "paid_pieces": "Variadas", "channels": "Meta, Remarketing, Google Ads", "objective": "Foco total na conversão final e prova social. Conteúdo Orgânico: CTA direto para matrícula. Conteúdo Pago: Remarketing pesado e pesquisa por &quot;matrícula Panamericana&quot;. Eventos de recepção de calouros com transmissão ao vivo para reforçar a prova social."}'>
+                    <div class="timeline-event left" data-month="março" data-content='{"organic_pieces": "20+", "paid_pieces": "Variadas", "channels": "Meta, Remarketing, Google Ads", "objective": "Foco total na conversão final e prova social. Conteúdo Orgânico: CTA direto para matrícula. Conteúdo Pago: Remarketing pesado e pesquisa por \"matrícula Panamericana\". Eventos de recepção de calouros com transmissão ao vivo para reforçar a prova social."}'>
                         <div class="timeline-content">
                             <h3 class="text-xl font-semibold">Março</h3>
                             <div class="flex items-center justify-end space-x-2 mt-2">
@@ -331,19 +331,25 @@
             if (timelineEvents.length > 0 && modal && closeButton) {
                 timelineEvents.forEach(event => {
                     event.addEventListener('click', () => {
-                        const month = event.getAttribute('data-month');
-                        const data = JSON.parse(event.getAttribute('data-content'));
+                        try {
+                            const month = event.getAttribute('data-month');
+                            const data = JSON.parse(event.getAttribute('data-content'));
+                            
+                            let contentHTML = `
+                                <p class="mb-2"><strong>Número de Peças (Conteúdo Orgânico):</strong> Aproximadamente ${data.organic_pieces} posts semanais.</p>
+                                <p class="mb-2"><strong>Número de Peças (Conteúdo Patrocinado):</strong> Várias variações de <strong>vídeos</strong> (15s), <strong>feed e stories</strong> em formatos 1080x1080 e 1080x1920.</p>
+                                <p class="mb-2"><strong>Canais Utilizados:</strong> ${data.channels}.</p>
+                                <p class="mb-2"><strong>Objetivo:</strong> ${data.objective}</p>
+                            `;
 
-                        let contentHTML = `
-                            <p class="mb-2"><strong>Número de Peças (Conteúdo Orgânico):</strong> Aproximadamente ${data.organic_pieces} posts semanais.</p>
-                            <p class="mb-2"><strong>Número de Peças (Conteúdo Patrocinado):</strong> Várias variações de <strong>vídeos</strong> (15s), <strong>feed e stories</strong> em formatos 1080x1080 e 1080x1920.</p>
-                            <p class="mb-2"><strong>Canais Utilizados:</strong> ${data.channels}.</p>
-                            <p class="mb-2"><strong>Objetivo:</strong> ${data.objective}</p>
-                        `;
+                            modalTitle.textContent = `Detalhes de ${month.charAt(0).toUpperCase() + month.slice(1)}`;
+                            modalContent.innerHTML = contentHTML;
+                            modal.style.display = 'block';
 
-                        modalTitle.textContent = `Detalhes de ${month.charAt(0).toUpperCase() + month.slice(1)}`;
-                        modalContent.innerHTML = contentHTML;
-                        modal.style.display = 'block';
+                        } catch (e) {
+                            console.error("Erro ao abrir o modal:", e);
+                            // Você pode adicionar um fallback visual aqui se necessário
+                        }
                     });
                 });
 
@@ -356,6 +362,8 @@
                         modal.style.display = 'none';
                     }
                 });
+            } else {
+                console.error("Elementos HTML necessários não foram encontrados.");
             }
         });
     </script>
