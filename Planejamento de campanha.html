@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Mídia Panamericana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 100%;
+            padding: 1rem;
+            margin: auto;
+        }
+        .section {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            border: 1px solid #e2e8f0;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+        h1 { color: #4338ca; }
+        h2 { color: #4338ca; }
+        h3 { color: #1e293b; }
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background-color: #94a3b8;
+            transform: translateX(-50%);
+        }
+        .timeline-event {
+            position: relative;
+            padding: 1rem;
+            margin: 2rem 0;
+            width: 100%;
+            background-color: #f8fafc;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .timeline-event:hover {
+            background-color: #e2e8f0;
+            transform: scale(1.02);
+        }
+        .timeline-event.left {
+            left: 0;
+        }
+        .timeline-event.right {
+            left: 50%;
+            margin-left: 2rem;
+        }
+        .timeline-event.left .timeline-content {
+            text-align: right;
+            padding-right: 2.5rem;
+        }
+        .timeline-event.right .timeline-content {
+            padding-left: 2.5rem;
+        }
+        .timeline-event::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #4338ca;
+            border: 4px solid #f0f4f8;
+            border-radius: 50%;
+            z-index: 1;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .timeline-event.left::after {
+            right: -10px;
+        }
+        .timeline-event.right::after {
+            left: -10px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            min-height: 80%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: #aaa;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #1e293b;
+            text-decoration: none;
+        }
+        .funnel-stage {
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
+        }
+        .funnel-stage.awareness { background-color: #3b82f6; }
+        .funnel-stage.consideration { background-color: #f97316; }
+        .funnel-stage.conversion { background-color: #22c55e; }
+        .funnel-stage.relationship { background-color: #ef4444; }
+
+        @media (max-width: 768px) {
+            .timeline-line { left: 1.5rem; }
+            .timeline-event {
+                width: calc(100% - 3rem);
+                margin: 2rem 0 2rem 3rem;
+            }
+            .timeline-event.right {
+                left: 0;
+                margin-left: 3rem;
+            }
+            .timeline-event.left::after,
+            .timeline-event.right::after {
+                left: -10px;
+            }
+            .timeline-event.left .timeline-content {
+                text-align: left;
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-8">
+    <div class="container mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-indigo-700">Plano de Campanha Panamericana</h1>
+            <p class="text-lg text-gray-600 mt-2">Análise e Projeção Completa</p>
+        </header>
+
+        <!-- Análise Geral -->
+        <section id="analysis" class="section">
+            <h2 class="text-3xl font-bold mb-4 text-indigo-700">Análise do Plano Atual</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                    <h3 class="text-xl font-semibold mb-2 text-green-700">Pontos Fortes</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Cobertura completa do funil (Awareness, Consideração, Conversão e Fidelização).</li>
+                        <li>Mix de canais robusto (Meta, Google, Remarketing).</li>
+                        <li>Projeções realistas de 1.033 leads e 206 matrículas.</li>
+                    </ul>
+                </div>
+                <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                    <h3 class="text-xl font-semibold mb-2 text-red-700">Pontos Fracos e Oportunidades</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Excesso de peças institucionais e repetição.</li>
+                        <li>Foco em diferenciação por curso só em janeiro, o que é tardio.</li>
+                        <li>Eventos offline pouco integrados ao cronograma digital.</li>
+                        <li>Alta dependência de remarketing, limitando a captação de novos públicos.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h3 class="text-xl font-semibold mb-2 text-indigo-700">Melhorias Sugeridas</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>Antecipar a comunicação por curso para novembro/dezembro.</li>
+                    <li>Reforçar a reputação e diferenciais da escola (prêmios, ex-alunos) em vez de focar em preço.</li>
+                    <li>Integrar eventos offline (aulas abertas, exposições) com campanhas digitais de apoio.</li>
+                    <li>Explorar canais como **YouTube** e **LinkedIn** para autoridade e reputação.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Funil da Campanha -->
+        <section id="funnel" class="section">
+            <h2 class="text-3xl font-bold mb-4 text-indigo-700">Funil da Campanha</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                <div class="p-4 rounded-lg awareness">
+                    <h3 class="text-xl font-bold mb-2">Awareness</h3>
+                    <p class="text-sm">Foco em alcance e percepção da escola, apresentando a marca para novas pessoas.</p>
+                </div>
+                <div class="p-4 rounded-lg consideration">
+                    <h3 class="text-xl font-bold mb-2">Consideração</h3>
+                    <p class="text-sm">Apresentar os cursos, ex-alunos e experiências para nutrir leads e gerar intenção.</p>
+                </div>
+                <div class="p-4 rounded-lg conversion">
+                    <h3 class="text-xl font-bold mb-2">Conversão</h3>
+                    <p class="text-sm">Intensificar o apelo comercial, gerar leads quentes e conduzir à matrícula.</p>
+                </div>
+                <div class="p-4 rounded-lg relationship">
+                    <h3 class="text-xl font-bold mb-2">Relacionamento</h3>
+                    <p class="text-sm">Mídias de retenção e comunicação com quem já converteu para fechar a matrícula.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline e Peças -->
+        <section id="timeline" class="section">
+            <h2 class="text-3xl font-bold text-center mb-8 text-indigo-700">Linha do Tempo e Peças</h2>
+            <div class="timeline-container">
+                <div class="timeline-line hidden sm:block"></div>
+                <div class="space-y-4">
+                    <!-- Setembro -->
+                    <div class="timeline-event left" data-month="setembro" data-content='{"organic_pieces": "8-12", "paid_pieces": "Variadas", "channels": "Meta, Google (Display)", "objective": "Início das campanhas. Foco em Awareness Institucional e On Demand. Conteúdo Orgânico: Reels de bastidores da escola, posts sobre a reputação e depoimentos de ex-alunos. Conteúdo Pago: Campanha de Reconhecimento em Meta, com ênfase em formatos animados e estáticos. Campanha On Demand para monetização imediata."}'>
+                        <div class="timeline-content">
+                            <h3 class="text-xl font-semibold">Setembro</h3>
+                            <div class="flex items-center justify-end space-x-2 mt-2">
+                                <span class="funnel-stage awareness">Awareness</span>
+                                <span class="funnel-stage conversion">Conversão (On Demand)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Outubro -->
+                    <div class="timeline-event right" data-month="outubro" data-content='{"organic_pieces": "12-15", "paid_pieces": "Variadas", "channels": "Meta, YouTube, Google (Display)", "objective": "Aumentar a base de leads e nutrir o público. Conteúdo Orgânico: A série 'Um dia como aluno' com o primeiro episódio de Fotografia. Lives com professores e ex-alunos. Conteúdo Pago: Bumper Ads e Video Ads no YouTube para reforçar a reputação. Campanha de tráfego para o site com foco em cursos e eventos abertos."}'>
+                        <div class="timeline-content">
+                            <h3 class="text-xl font-semibold">Outubro</h3>
+                            <div class="flex items-center justify-start space-x-2 mt-2">
+                                <span class="funnel-stage awareness">Awareness</span>
+                                <span class="funnel-stage consideration">Consideração</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Novembro -->
+                    <div class="timeline-event left" data-month="novembro" data-content='{"organic_pieces": "12-16", "paid_pieces": "Variadas", "channels": "Meta, Remarketing", "objective": "Fortalecer a consideração e gerar conversões. Conteúdo Orgânico: Lives e workshops sobre Design de Interiores. Conteúdo de portfólios e cases. Conteúdo Pago: Foco em anúncios de Formulário e Remarketing. Criação de landing pages específicas para cada curso com apelo de escassez e a promessa de bônus (cursos On Demand)." }'>
+                        <div class="timeline-content">
+                            <h3 class="text-xl font-semibold">Novembro</h3>
+                            <div class="flex items-center justify-end space-x-2 mt-2">
+                                <span class="funnel-stage consideration">Consideração</span>
+                                <span class="funnel-stage conversion">Conversão</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dezembro -->
+                    <div class="timeline-event right" data-month="dezembro" data-content='{"organic_pieces": "12-16", "paid_pieces": "Variadas", "channels": "Meta, Remarketing", "objective": "Transformar intenção em pré-matrícula. Conteúdo Orgânico: Mini-cursos online gratuitos e ativações culturais. Conteúdo Pago: Tráfego segmentado por curso e remarketing com CTA direto para a pré-matrícula de Março. Conteúdo focado nos bônus e diferenciais exclusivos da escola."}'>
+                        <div class="timeline-content">
+                            <h3 class="text-xl font-semibold">Dezembro</h3>
+                            <div class="flex items-center justify-start space-x-2 mt-2">
+                                <span class="funnel-stage consideration">Consideração</span>
+                                <span class="funnel-stage conversion">Conversão</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Janeiro -->
+                    <div class="timeline-event left" data-month="janeiro" data-content='{"organic_pieces": "16-20", "paid_pieces": "Variadas", "channels": "Meta, PMax, Google Ads, Remarketing, WhatsApp", "objective": "Gerar leads quentes e conduzir à matrícula. Conteúdo Orgânico: Posts focados em professores e tours virtuais. Aulas abertas sobre Animação e Games. Conteúdo Pago: Intensificação de PMax, Pesquisa e Remarketing. Uso de WhatsApp Ads para nutrir leads qualificados com mensagens de escassez e urgência."}'>
+                        <div class="timeline-content">
+                            <h3 class="text-xl font-semibold">Janeiro</h3>
+                            <div class="flex items-center justify-end space-x-2 mt-2">
+                                <span class="funnel-stage conversion">Conversão</span>
+                                <span class="funnel-stage relationship">Relacionamento</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fevereiro -->
+                    <div class="timeline-event right" data-month="fevereiro" data-content='{"organic_pieces": "16-20", "paid_pieces": "Variadas", "channels": "Meta, PMax, Google Ads, Remarketing", "objective": "Reforçar o senso de urgência e fechar matrículas. Conteúdo Orgânico: Depoimentos de alunos e exposição de portfólios. Conteúdo Pago: PMax forte, Pesquisa, Remarketing agressivo com CTA para 'últimas vagas'. Lives com coordenadores e visitas guiadas para os leads que ainda não se matricularam."}'>
+                        <div class="timeline-content">
+                            <h3 class="text-xl font-semibold">Fevereiro</h3>
+                            <div class="flex items-center justify-start space-x-2 mt-2">
+                                <span class="funnel-stage conversion">Conversão</span>
+                                <span class="funnel-stage relationship">Relacionamento</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Março -->
+                    <div class="timeline-event left" data-month="março" data-content='{"organic_pieces": "20+", "paid_pieces": "Variadas", "channels": "Meta, Remarketing, Google Ads", "objective": "Foco total na conversão final e prova social. Conteúdo Orgânico: CTA direto para matrícula. Conteúdo Pago: Remarketing pesado e pesquisa por 'matrícula Panamericana'. Eventos de recepção de calouros com transmissão ao vivo para reforçar a prova social."}'>
+                        <div class="timeline-content">
+                            <h3 class="text-xl font-semibold">Março</h3>
+                            <div class="flex items-center justify-end space-x-2 mt-2">
+                                <span class="funnel-stage conversion">Conversão</span>
+                                <span class="funnel-stage relationship">Relacionamento</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ferramenta de Geração de Conteúdo com Gemini API -->
+        <section id="gemini-tool" class="section">
+            <h2 class="text-3xl font-bold mb-4 text-indigo-700">✨ Ferramenta de Geração de Títulos para PMax</h2>
+            <div class="mb-4">
+                <label for="courseInput" class="block text-gray-700 font-semibold mb-2">Digite o nome do curso e seus principais diferenciais (ex: "Fotografia, aulas práticas com equipamentos de ponta, estúdio profissional"):</label>
+                <input type="text" id="courseInput" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ex: Fotografia, aulas práticas...">
+            </div>
+            <button id="generateBtn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Gerar Títulos e Descrições</button>
+            <div id="results" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200" style="display:none;">
+                <h3 class="text-xl font-semibold mb-2">Sugestões:</h3>
+                <div id="loading" class="text-center py-4" style="display:none;">
+                    <div class="w-8 h-8 border-4 border-t-4 border-gray-200 border-t-indigo-500 rounded-full animate-spin mx-auto"></div>
+                    <p class="mt-2 text-gray-600">Gerando sugestões...</p>
+                </div>
+                <div id="geminiResults"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateBtn = document.getElementById('generateBtn');
+            const courseInput = document.getElementById('courseInput');
+            const resultsDiv = document.getElementById('results');
+            const loadingDiv = document.getElementById('loading');
+            const geminiResultsDiv = document.getElementById('geminiResults');
+
+            generateBtn.addEventListener('click', () => {
+                const userQuery = courseInput.value.trim();
+                if (userQuery === "") {
+                    return;
+                }
+
+                // Show loading and results sections
+                resultsDiv.style.display = 'block';
+                loadingDiv.style.display = 'block';
+                geminiResultsDiv.innerHTML = '';
+
+                // Call LLM API
+                generateContent(userQuery);
+            });
+
+            async function generateContent(userQuery) {
+                const prompt = `Atue como um especialista em marketing digital para a escola de arte e design Panamericana.
+                                O cliente quer sugestões de títulos e descrições para campanhas de Google PMax.
+                                O texto deve ser criativo, focar na transformação e nos diferenciais do curso, e evitar focar em preço ou desconto.
+                                O tom deve ser aspiracional e focado na criatividade e carreira.
+                                Gere 5 sugestões de títulos e 5 sugestões de descrições.
+                                A entrada do usuário é: "${userQuery}".
+                                O formato da resposta deve ser um JSON com a seguinte estrutura:
+                                {
+                                    "titulos": ["titulo1", "titulo2", "titulo3", "titulo4", "titulo5"],
+                                    "descricoes": ["descricao1", "descricao2", "descricao3", "descricao4", "descricao5"]
+                                }
+                                `;
+
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                "titulos": {
+                                    "type": "ARRAY",
+                                    "items": { "type": "STRING" }
+                                },
+                                "descricoes": {
+                                    "type": "ARRAY",
+                                    "items": { "type": "STRING" }
+                                }
+                            }
+                        }
+                    }
+                };
+                
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    let response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API call failed with status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    const jsonString = result.candidates[0].content.parts[0].text;
+                    const parsedJson = JSON.parse(jsonString);
+
+                    displayResults(parsedJson);
+
+                } catch (error) {
+                    console.error("Erro ao chamar a API do Gemini:", error);
+                    geminiResultsDiv.innerHTML = `<p class="text-red-500">Ocorreu um erro ao gerar o conteúdo. Por favor, tente novamente.</p>`;
+                } finally {
+                    loadingDiv.style.display = 'none';
+                }
+            }
+
+            function displayResults(data) {
+                let html = `
+                    <h4 class="text-lg font-bold mt-4">Títulos:</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        ${data.titulos.map(t => `<li>${t}</li>`).join('')}
+                    </ul>
+                    <h4 class="text-lg font-bold mt-4">Descrições:</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        ${data.descricoes.map(d => `<li>${d}</li>`).join('')}
+                    </ul>
+                `;
+                geminiResultsDiv.innerHTML = html;
+            }
+        });
+        
+        const timelineEvents = document.querySelectorAll('.timeline-event');
+        const modal = document.getElementById('detailsModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        const closeButton = document.querySelector('.close-button');
+
+        timelineEvents.forEach(event => {
+            event.addEventListener('click', () => {
+                const month = event.getAttribute('data-month');
+                const data = JSON.parse(event.getAttribute('data-content'));
+                
+                let contentHTML = `
+                    <p class="mb-2"><strong>Número de Peças (Conteúdo Orgânico):</strong> Aproximadamente ${data.organic_pieces} posts semanais.</p>
+                    <p class="mb-2"><strong>Número de Peças (Conteúdo Patrocinado):</strong> Várias variações de <strong>vídeos</strong> (15s), <strong>feed e stories</strong> em formatos 1080x1080 e 1080x1920. Total de ${data.paid_pieces} peças por mês.</p>
+                    <p class="mb-2"><strong>Canais Utilizados:</strong> ${data.channels}.</p>
+                    <p class="mb-2"><strong>Objetivo:</strong> ${data.objective}</p>
+                `;
+
+                modalTitle.textContent = `Detalhes de ${month.charAt(0).toUpperCase() + month.slice(1)}`;
+                modalContent.innerHTML = contentHTML;
+                modal.style.display = 'block';
+            });
+        });
+
+        closeButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
