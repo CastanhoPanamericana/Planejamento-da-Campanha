@@ -246,7 +246,7 @@
                         </div>
                     </div>
                     <!-- Outubro -->
-                    <div class="timeline-event right" data-month="outubro" data-content='{"organic_pieces": "12-15", "paid_pieces": "Variadas", "channels": "Meta, YouTube, Google (Display)", "objective": "Aumentar a base de leads e nutrir o público. Conteúdo Orgânico: A série 'Um dia como aluno' com o primeiro episódio de Fotografia. Lives com professores e ex-alunos. Conteúdo Pago: Bumper Ads e Video Ads no YouTube para reforçar a reputação. Campanha de tráfego para o site com foco em cursos e eventos abertos."}'>
+                    <div class="timeline-event right" data-month="outubro" data-content='{"organic_pieces": "12-15", "paid_pieces": "Variadas", "channels": "Meta, YouTube, Google (Display)", "objective": "Aumentar a base de leads e nutrir o público. Conteúdo Orgânico: A série &quot;Um dia como aluno&quot; com o primeiro episódio de Fotografia. Lives com professores e ex-alunos. Conteúdo Pago: Bumper Ads e Video Ads no YouTube para reforçar a reputação. Campanha de tráfego para o site com foco em cursos e eventos abertos."}'>
                         <div class="timeline-content">
                             <h3 class="text-xl font-semibold">Outubro</h3>
                             <div class="flex items-center justify-start space-x-2 mt-2">
@@ -286,7 +286,7 @@
                         </div>
                     </div>
                     <!-- Fevereiro -->
-                    <div class="timeline-event right" data-month="fevereiro" data-content='{"organic_pieces": "16-20", "paid_pieces": "Variadas", "channels": "Meta, PMax, Google Ads, Remarketing", "objective": "Reforçar o senso de urgência e fechar matrículas. Conteúdo Orgânico: Depoimentos de alunos e exposição de portfólios. Conteúdo Pago: PMax forte, Pesquisa, Remarketing agressivo com CTA para 'últimas vagas'. Lives com coordenadores e visitas guiadas para os leads que ainda não se matricularam."}'>
+                    <div class="timeline-event right" data-month="fevereiro" data-content='{"organic_pieces": "16-20", "paid_pieces": "Variadas", "channels": "Meta, PMax, Google Ads, Remarketing", "objective": "Reforçar o senso de urgência e fechar matrículas. Conteúdo Orgânico: Depoimentos de alunos e exposição de portfólios. Conteúdo Pago: PMax forte, Pesquisa, Remarketing agressivo com CTA para &quot;últimas vagas&quot;. Lives com coordenadores e visitas guiadas para os leads que ainda não se matricularam."}'>
                         <div class="timeline-content">
                             <h3 class="text-xl font-semibold">Fevereiro</h3>
                             <div class="flex items-center justify-start space-x-2 mt-2">
@@ -296,7 +296,7 @@
                         </div>
                     </div>
                     <!-- Março -->
-                    <div class="timeline-event left" data-month="março" data-content='{"organic_pieces": "20+", "paid_pieces": "Variadas", "channels": "Meta, Remarketing, Google Ads", "objective": "Foco total na conversão final e prova social. Conteúdo Orgânico: CTA direto para matrícula. Conteúdo Pago: Remarketing pesado e pesquisa por 'matrícula Panamericana'. Eventos de recepção de calouros com transmissão ao vivo para reforçar a prova social."}'>
+                    <div class="timeline-event left" data-month="março" data-content='{"organic_pieces": "20+", "paid_pieces": "Variadas", "channels": "Meta, Remarketing, Google Ads", "objective": "Foco total na conversão final e prova social. Conteúdo Orgânico: CTA direto para matrícula. Conteúdo Pago: Remarketing pesado e pesquisa por &quot;matrícula Panamericana&quot;. Eventos de recepção de calouros com transmissão ao vivo para reforçar a prova social."}'>
                         <div class="timeline-content">
                             <h3 class="text-xl font-semibold">Março</h3>
                             <div class="flex items-center justify-end space-x-2 mt-2">
@@ -309,157 +309,53 @@
             </div>
         </section>
 
-        <!-- Ferramenta de Geração de Conteúdo com Gemini API -->
-        <section id="gemini-tool" class="section">
-            <h2 class="text-3xl font-bold mb-4 text-indigo-700">✨ Ferramenta de Geração de Títulos para PMax</h2>
-            <div class="mb-4">
-                <label for="courseInput" class="block text-gray-700 font-semibold mb-2">Digite o nome do curso e seus principais diferenciais (ex: "Fotografia, aulas práticas com equipamentos de ponta, estúdio profissional"):</label>
-                <input type="text" id="courseInput" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ex: Fotografia, aulas práticas...">
+        <!-- Detalhes do Modal (Adicionado no corpo do HTML) -->
+        <div id="detailsModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+                <div id="modalContent"></div>
             </div>
-            <button id="generateBtn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Gerar Títulos e Descrições</button>
-            <div id="results" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200" style="display:none;">
-                <h3 class="text-xl font-semibold mb-2">Sugestões:</h3>
-                <div id="loading" class="text-center py-4" style="display:none;">
-                    <div class="w-8 h-8 border-4 border-t-4 border-gray-200 border-t-indigo-500 rounded-full animate-spin mx-auto"></div>
-                    <p class="mt-2 text-gray-600">Gerando sugestões...</p>
-                </div>
-                <div id="geminiResults"></div>
-            </div>
-        </section>
+        </div>
+
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const generateBtn = document.getElementById('generateBtn');
-            const courseInput = document.getElementById('courseInput');
-            const resultsDiv = document.getElementById('results');
-            const loadingDiv = document.getElementById('loading');
-            const geminiResultsDiv = document.getElementById('geminiResults');
+            const timelineEvents = document.querySelectorAll('.timeline-event');
+            const modal = document.getElementById('detailsModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            const closeButton = document.querySelector('.close-button');
 
-            generateBtn.addEventListener('click', () => {
-                const userQuery = courseInput.value.trim();
-                if (userQuery === "") {
-                    return;
-                }
+            if (timelineEvents.length > 0 && modal && closeButton) {
+                timelineEvents.forEach(event => {
+                    event.addEventListener('click', () => {
+                        const month = event.getAttribute('data-month');
+                        const data = JSON.parse(event.getAttribute('data-content'));
 
-                // Show loading and results sections
-                resultsDiv.style.display = 'block';
-                loadingDiv.style.display = 'block';
-                geminiResultsDiv.innerHTML = '';
+                        let contentHTML = `
+                            <p class="mb-2"><strong>Número de Peças (Conteúdo Orgânico):</strong> Aproximadamente ${data.organic_pieces} posts semanais.</p>
+                            <p class="mb-2"><strong>Número de Peças (Conteúdo Patrocinado):</strong> Várias variações de <strong>vídeos</strong> (15s), <strong>feed e stories</strong> em formatos 1080x1080 e 1080x1920.</p>
+                            <p class="mb-2"><strong>Canais Utilizados:</strong> ${data.channels}.</p>
+                            <p class="mb-2"><strong>Objetivo:</strong> ${data.objective}</p>
+                        `;
 
-                // Call LLM API
-                generateContent(userQuery);
-            });
-
-            async function generateContent(userQuery) {
-                const prompt = `Atue como um especialista em marketing digital para a escola de arte e design Panamericana.
-                                O cliente quer sugestões de títulos e descrições para campanhas de Google PMax.
-                                O texto deve ser criativo, focar na transformação e nos diferenciais do curso, e evitar focar em preço ou desconto.
-                                O tom deve ser aspiracional e focado na criatividade e carreira.
-                                Gere 5 sugestões de títulos e 5 sugestões de descrições.
-                                A entrada do usuário é: "${userQuery}".
-                                O formato da resposta deve ser um JSON com a seguinte estrutura:
-                                {
-                                    "titulos": ["titulo1", "titulo2", "titulo3", "titulo4", "titulo5"],
-                                    "descricoes": ["descricao1", "descricao2", "descricao3", "descricao4", "descricao5"]
-                                }
-                                `;
-
-                const payload = {
-                    contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: {
-                        responseMimeType: "application/json",
-                        responseSchema: {
-                            type: "OBJECT",
-                            properties: {
-                                "titulos": {
-                                    "type": "ARRAY",
-                                    "items": { "type": "STRING" }
-                                },
-                                "descricoes": {
-                                    "type": "ARRAY",
-                                    "items": { "type": "STRING" }
-                                }
-                            }
-                        }
-                    }
-                };
-                
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-                try {
-                    let response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        modalTitle.textContent = `Detalhes de ${month.charAt(0).toUpperCase() + month.slice(1)}`;
+                        modalContent.innerHTML = contentHTML;
+                        modal.style.display = 'block';
                     });
-                    
-                    if (!response.ok) {
-                        throw new Error(`API call failed with status: ${response.status}`);
+                });
+
+                closeButton.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+
+                window.addEventListener('click', (event) => {
+                    if (event.target == modal) {
+                        modal.style.display = 'none';
                     }
-
-                    const result = await response.json();
-                    
-                    const jsonString = result.candidates[0].content.parts[0].text;
-                    const parsedJson = JSON.parse(jsonString);
-
-                    displayResults(parsedJson);
-
-                } catch (error) {
-                    console.error("Erro ao chamar a API do Gemini:", error);
-                    geminiResultsDiv.innerHTML = `<p class="text-red-500">Ocorreu um erro ao gerar o conteúdo. Por favor, tente novamente.</p>`;
-                } finally {
-                    loadingDiv.style.display = 'none';
-                }
-            }
-
-            function displayResults(data) {
-                let html = `
-                    <h4 class="text-lg font-bold mt-4">Títulos:</h4>
-                    <ul class="list-disc list-inside space-y-1">
-                        ${data.titulos.map(t => `<li>${t}</li>`).join('')}
-                    </ul>
-                    <h4 class="text-lg font-bold mt-4">Descrições:</h4>
-                    <ul class="list-disc list-inside space-y-1">
-                        ${data.descricoes.map(d => `<li>${d}</li>`).join('')}
-                    </ul>
-                `;
-                geminiResultsDiv.innerHTML = html;
-            }
-        });
-        
-        const timelineEvents = document.querySelectorAll('.timeline-event');
-        const modal = document.getElementById('detailsModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalContent = document.getElementById('modalContent');
-        const closeButton = document.querySelector('.close-button');
-
-        timelineEvents.forEach(event => {
-            event.addEventListener('click', () => {
-                const month = event.getAttribute('data-month');
-                const data = JSON.parse(event.getAttribute('data-content'));
-                
-                let contentHTML = `
-                    <p class="mb-2"><strong>Número de Peças (Conteúdo Orgânico):</strong> Aproximadamente ${data.organic_pieces} posts semanais.</p>
-                    <p class="mb-2"><strong>Número de Peças (Conteúdo Patrocinado):</strong> Várias variações de <strong>vídeos</strong> (15s), <strong>feed e stories</strong> em formatos 1080x1080 e 1080x1920. Total de ${data.paid_pieces} peças por mês.</p>
-                    <p class="mb-2"><strong>Canais Utilizados:</strong> ${data.channels}.</p>
-                    <p class="mb-2"><strong>Objetivo:</strong> ${data.objective}</p>
-                `;
-
-                modalTitle.textContent = `Detalhes de ${month.charAt(0).toUpperCase() + month.slice(1)}`;
-                modalContent.innerHTML = contentHTML;
-                modal.style.display = 'block';
-            });
-        });
-
-        closeButton.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
+                });
             }
         });
     </script>
